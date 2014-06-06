@@ -22,7 +22,7 @@ class BankAccount
     @balance
   end
 
-  def self.accounts
+  def self.read_accounts_from_csv
     accounts = []
     CSV.foreach('balances.csv', headers: true, header_converters: :symbol) do |row|
       accounts << BankAccount.new(row[:account], row[:balance])
@@ -45,7 +45,7 @@ end
 
 
 def account_summaries
-  balances = BankAccount.accounts
+  balances = BankAccount.read_accounts_from_csv
   balances.each do |balance|
     puts "==== #{balance.account} ===="
     puts "Starting Balance: $#{balance.starting_balance}"
